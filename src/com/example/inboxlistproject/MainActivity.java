@@ -3,14 +3,9 @@ package com.example.inboxlistproject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.gargoylesoftware.htmlunit.util.NameValuePair;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -22,15 +17,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Contacts.People;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 // Main class + Http Get class 
@@ -45,7 +37,9 @@ public class MainActivity extends Activity {
 	private CustomHandler customHandler;
 	
 	// try parsing json
-    private static String url = "http://api.androidhive.info/contacts/";
+	//curl -X POST -d "hello=hello" https://mysterious-island-92840.herokuapp.com/curl_exampleþ
+
+    private static String url = "https://mysterious-island-92840.herokuapp.com/curl_exampleþ";
     ArrayList<HashMap<String, String>> contactList = new ArrayList<HashMap<String, String>>();
     private static final String TAG = HttpHandler.class.getSimpleName();
     
@@ -266,19 +260,14 @@ public class MainActivity extends Activity {
  
         @Override
         protected Void doInBackground(Void... arg0) {
+        	// Making a request to url and getting response        	
             HttpHandler sh = new HttpHandler();
-    		System.out.println("gilad gilad222222");
-            // Making a request to url and getting response
-    		
-    		// Try to do a Post request
-//    		List<NameValuePair> params = new ArrayList<NameValuePair>();
-//    		params.add(new NameValuePair("email", "user@gmail.com"));
-//    		params.add(new NameValuePair("password", "encrypted_password"));
-//    		url = "http://www.example.com/login";  		
-//    		String jsonStr = sh.makePostCall(url, params);
-    		
-    		String jsonStr = sh.makeServiceCall(url);
-    		
+
+			HashMap<String, String> params=new HashMap<String, String>();
+			params.put("hello","hello");
+			params.put("hello2","hello2");    		
+    		String jsonStr = sh.makePostCall(url, params);
+
             Log.e(TAG, "Response from url: " + jsonStr);
  
             if (jsonStr != null) {
